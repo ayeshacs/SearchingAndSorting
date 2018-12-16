@@ -1,0 +1,99 @@
+public class MergeSort
+{
+    
+    public static void merge(int[] l, int[] r, int[] a)
+    {
+        int ll = l.length;
+        int rl = r.length;
+        
+        int i = 0, j = 0, k = 0;
+        
+        
+        while(i<ll && j< rl)
+        {
+            if(l[i]>r[j])
+            {
+                a[k] = r [j];
+                j++;
+            }
+           else
+            {
+                a[k] = l[i];
+                i++;
+            }
+            k++;
+        }
+        
+        while(i<ll)
+        {
+            a[k]=l[i];
+            i++;
+            k++;
+        }
+        
+        while(j<rl)
+        {
+            a[k]=r[j];
+            j++;
+            k++;
+        }
+        
+    }
+    
+    //breaks the given array a into smaller arrays recursively
+    public void mergeSort(int[] a)
+    {
+        int n = a.length;
+        
+        //base condition. if array has one element, it is alreday sorted
+        if(n<2) return;
+        
+        int mid = n/2;
+
+        int[] l = new int[mid];
+        int[] r = new int[n-mid];
+        
+        //left array will be from 0 to mid-1
+        for(int i=0; i<mid; i++)
+        {
+            l[i] = a[i];
+        }
+        
+        //right array will be from mid to n-mid-1
+        for(int j=0; j<n-mid; j++)
+        {
+            r[j] = a[mid+j];
+        }
+        
+        //break left array
+        mergeSort(l);
+        //break right array
+        mergeSort(r);
+        //merge left, right array into a. Overwriting a
+        merge(l,r,a);
+        
+    }
+    
+    /* A utility function to print array of size n */
+    static void printArray(int arr[]) 
+    { 
+        int n = arr.length; 
+        for (int i=0; i<n; ++i) 
+            System.out.print(arr[i] + " "); 
+        System.out.println(); 
+    } 
+
+     public static void main(String []args)
+     {
+        int[] arr = {3,1,2,8,1,0,35,21};
+        System.out.println("Given Array"); 
+        printArray(arr);
+        
+        MergeSort ob = new MergeSort();
+        ob.mergeSort(arr);
+        
+        System.out.println("\nSorted array"); 
+        printArray(arr); 
+        
+     }
+}
